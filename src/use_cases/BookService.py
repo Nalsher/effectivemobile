@@ -3,7 +3,7 @@ from src.entity.Book import Book
 from typing import List
 
 
-class BookUseCase:
+class BookService:
     def __init__(self, repository: BookRepositoryInterface):
         self.repository = repository
 

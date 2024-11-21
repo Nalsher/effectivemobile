@@ -1,13 +1,13 @@
 import os
 from xml.dom import NotFoundErr
 from src.repositories.BookRepository import MockBookRepository
-from src.use_cases.UseCase import BookUseCase
+from src.use_cases.BookService import BookService
 
 
 def console_interface():
     file_path = os.path.join("../storage/books.json")
     repository = MockBookRepository(file_path)
-    use_case = BookUseCase(repository)
+    service = BookService(repository)
 
     while True:
         print("\n=== Book Management ===")
@@ -25,21 +25,21 @@ def console_interface():
                 title = input("Enter Book Title: ")
                 author = input("Enter Book Author: ")
                 year = input("Enter Book Year: ")
-                use_case.add_book(book_id, title, author, year)
+                service.add_book(book_id, title, author, year)
                 print("Book added successfully.")
             except ValueError:
                 print("Invalid input. Please try again.")
         elif choice == "2":
             try:
                 book_id = int(input("Enter Book ID to delete: "))
-                if use_case.delete_book(book_id):
+                if service.delete_book(book_id):
                     print("Book deleted successfully.")
                 else:
                     print("Book not found.")
             except ValueError:
                 print("Invalid input. Please try again.")
         elif choice == "3":
-            books = use_case.list_books()
+            books = service.list_books()
             if books:
                 print("\nCurrent Books:")
                 for book in books:
@@ -51,13 +51,13 @@ def console_interface():
                 title = input("Enter Book Title: ")
                 author = input("Enter Book Author: ")
                 year = input("Enter Book Year: ")
-                print(use_case.find_book(author, title, year))
+                print(service.find_book(author, title, year))
             except NotFoundErr:
                 print("Book not found")
         elif choice == "5":
             try:
                 id = int(input("Enter Book ID: "))
-                if (use_case.change_status(id)):
+                if (service.change_status(id)):
                     print("Book status changed successfuly")
                 else:
                     print("Book not found")
@@ -65,7 +65,7 @@ def console_interface():
                 print("Invalid input. Please try again.")
         elif choice == "6":
             print("Exiting...")
-            break
+            exit()
         else:
             print("Invalid choice. Please try again.")
 

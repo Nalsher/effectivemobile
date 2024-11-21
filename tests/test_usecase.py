@@ -2,7 +2,7 @@ import unittest
 from unittest import mock
 from xml.dom import NotFoundErr
 
-from src.use_cases.UseCase import BookUseCase
+from src.use_cases.BookService import BookUseCase
 from src.entity.Book import Book
 
 
